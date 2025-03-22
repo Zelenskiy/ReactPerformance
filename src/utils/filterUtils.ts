@@ -1,23 +1,36 @@
-import { Country, FilterState, SortDirection, SortField, Region } from '../types/types';
+import {
+  Country,
+  FilterState,
+  SortDirection,
+  SortField,
+  Region,
+} from '../types/types';
 
-export const filterBySearch = (countries: Country[], searchQuery: string): Country[] => {
+export const filterBySearch = (
+  countries: Country[],
+  searchQuery: string
+): Country[] => {
   if (!searchQuery) return countries;
-  
+
   const query = searchQuery.toLowerCase();
-  return countries.filter(country => 
-    country.name.common.toLowerCase().includes(query) || 
-    country.name.official.toLowerCase().includes(query)
+  return countries.filter(
+    (country) =>
+      country.name.common.toLowerCase().includes(query) ||
+      country.name.official.toLowerCase().includes(query)
   );
 };
 
-export const filterByRegion = (countries: Country[], region: Region): Country[] => {
+export const filterByRegion = (
+  countries: Country[],
+  region: Region
+): Country[] => {
   if (region === 'All') return countries;
-  return countries.filter(country => country.region === region);
+  return countries.filter((country) => country.region === region);
 };
 
 export const sortCountries = (
-  countries: Country[], 
-  sortField: SortField, 
+  countries: Country[],
+  sortField: SortField,
   sortDirection: SortDirection
 ): Country[] => {
   return [...countries].sort((a, b) => {
@@ -34,11 +47,11 @@ export const sortCountries = (
 };
 
 export const applyFilters = (
-  countries: Country[], 
+  countries: Country[],
   filters: FilterState
 ): Country[] => {
   const { searchQuery, selectedRegion, sortField, sortDirection } = filters;
-  
+
   let filteredCountries = filterByRegion(countries, selectedRegion);
   filteredCountries = filterBySearch(filteredCountries, searchQuery);
   return sortCountries(filteredCountries, sortField, sortDirection);

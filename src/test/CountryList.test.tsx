@@ -37,7 +37,9 @@ describe('CountryList', () => {
       />
     );
 
-    expect(screen.getByText('No countries found matching your criteria.')).toBeInTheDocument();
+    expect(
+      screen.getByText('No countries found matching your criteria.')
+    ).toBeInTheDocument();
   });
 
   it('correctly marks visited countries', () => {
@@ -64,9 +66,11 @@ describe('CountryList', () => {
       />
     );
 
-    mockCountries.forEach(country => {
+    mockCountries.forEach((country) => {
       expect(screen.getByText(country.name.common)).toBeInTheDocument();
-      expect(screen.getByText(`Population: ${country.population.toLocaleString()}`)).toBeInTheDocument();
+      expect(
+        screen.getByText(`Population: ${country.population.toLocaleString()}`)
+      ).toBeInTheDocument();
       expect(screen.getByText(`Region: ${country.region}`)).toBeInTheDocument();
     });
 

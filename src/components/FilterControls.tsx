@@ -6,27 +6,39 @@ interface FilterControlsProps {
   onFilterChange: (updatedFilters: Partial<FilterState>) => void;
 }
 
-const FilterControls: React.FC<FilterControlsProps> = ({ 
-  filters, 
-  onFilterChange 
+const FilterControls: React.FC<FilterControlsProps> = ({
+  filters,
+  onFilterChange,
 }) => {
   const { searchQuery, selectedRegion, sortField, sortDirection } = filters;
 
-  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    onFilterChange({ searchQuery: e.target.value });
-  }, [onFilterChange]);
+  const handleSearchChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      onFilterChange({ searchQuery: e.target.value });
+    },
+    [onFilterChange]
+  );
 
-  const handleRegionChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    onFilterChange({ selectedRegion: e.target.value as Region });
-  }, [onFilterChange]);
+  const handleRegionChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      onFilterChange({ selectedRegion: e.target.value as Region });
+    },
+    [onFilterChange]
+  );
 
-  const handleSortFieldChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    onFilterChange({ sortField: e.target.value as SortField });
-  }, [onFilterChange]);
+  const handleSortFieldChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      onFilterChange({ sortField: e.target.value as SortField });
+    },
+    [onFilterChange]
+  );
 
-  const handleSortDirectionChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    onFilterChange({ sortDirection: e.target.value as SortDirection });
-  }, [onFilterChange]);
+  const handleSortDirectionChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      onFilterChange({ sortDirection: e.target.value as SortDirection });
+    },
+    [onFilterChange]
+  );
 
   return (
     <div className="filter-controls">
@@ -41,8 +53,8 @@ const FilterControls: React.FC<FilterControlsProps> = ({
       </div>
 
       <div className="filters-container">
-        <select 
-          value={selectedRegion} 
+        <select
+          value={selectedRegion}
           onChange={handleRegionChange}
           className="region-select"
         >
@@ -55,8 +67,8 @@ const FilterControls: React.FC<FilterControlsProps> = ({
         </select>
 
         <div className="sort-controls">
-          <select 
-            value={sortField} 
+          <select
+            value={sortField}
             onChange={handleSortFieldChange}
             className="sort-field-select"
           >
@@ -64,8 +76,8 @@ const FilterControls: React.FC<FilterControlsProps> = ({
             <option value="population">Population</option>
           </select>
 
-          <select 
-            value={sortDirection} 
+          <select
+            value={sortDirection}
             onChange={handleSortDirectionChange}
             className="sort-direction-select"
           >

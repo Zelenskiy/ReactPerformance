@@ -14,7 +14,7 @@ const CountryList: React.FC<CountryListProps> = ({
   countries,
   filters,
   visitedCountries,
-  onToggleVisited
+  onToggleVisited,
 }) => {
   const filteredCountries = useMemo(() => {
     return applyFilters(countries, filters);
@@ -30,7 +30,7 @@ const CountryList: React.FC<CountryListProps> = ({
 
   return (
     <div className="country-list">
-      {filteredCountries.map(country => (
+      {filteredCountries.map((country) => (
         <CountryCard
           key={country.cca3}
           country={country}

@@ -34,7 +34,9 @@ describe('useCountries', () => {
   });
 
   it('sets error state on failed fetch', async () => {
-    (fetchCountries as Mock).mockRejectedValueOnce(new Error('Failed to fetch'));
+    (fetchCountries as Mock).mockRejectedValueOnce(
+      new Error('Failed to fetch')
+    );
 
     const { result } = renderHook(() => useCountries());
 
@@ -42,7 +44,9 @@ describe('useCountries', () => {
 
     expect(fetchCountries).toHaveBeenCalledTimes(1);
     expect(result.current.countries).toEqual([]);
-    expect(result.current.error).toBe('Failed to fetch countries. Please try again later.');
+    expect(result.current.error).toBe(
+      'Failed to fetch countries. Please try again later.'
+    );
   });
 });
 
@@ -64,7 +68,9 @@ describe('useVisitedCountries', () => {
   });
 
   it('loads visited countries from localStorage', () => {
-    vi.spyOn(localStorage, 'getItem').mockReturnValueOnce(JSON.stringify(['FIN', 'BRA']));
+    vi.spyOn(localStorage, 'getItem').mockReturnValueOnce(
+      JSON.stringify(['FIN', 'BRA'])
+    );
 
     const { result } = renderHook(() => useVisitedCountries());
 
@@ -98,7 +104,9 @@ describe('useVisitedCountries', () => {
   });
 
   it('provides an isVisited function that checks if a country is visited', () => {
-    vi.spyOn(localStorage, 'getItem').mockReturnValueOnce(JSON.stringify(['FIN']));
+    vi.spyOn(localStorage, 'getItem').mockReturnValueOnce(
+      JSON.stringify(['FIN'])
+    );
 
     const { result } = renderHook(() => useVisitedCountries());
 

@@ -19,7 +19,9 @@ describe('FilterControls', () => {
       />
     );
 
-    expect(screen.getByPlaceholderText('Search for a country...')).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText('Search for a country...')
+    ).toBeInTheDocument();
     expect(screen.getByText('All Regions')).toBeInTheDocument();
     expect(screen.getByText('Name')).toBeInTheDocument();
     expect(screen.getByText('Population')).toBeInTheDocument();
@@ -51,10 +53,12 @@ describe('FilterControls', () => {
 
     const selects = screen.getAllByRole('combobox');
     const regionSelect2 = selects[0];
-    
+
     fireEvent.change(regionSelect2, { target: { value: 'Europe' } });
 
-    expect(mockOnFilterChange).toHaveBeenCalledWith({ selectedRegion: 'Europe' });
+    expect(mockOnFilterChange).toHaveBeenCalledWith({
+      selectedRegion: 'Europe',
+    });
   });
 
   it('calls onFilterChange with updated sortField when sort field select changes', () => {
@@ -67,10 +71,12 @@ describe('FilterControls', () => {
 
     const selects = screen.getAllByRole('combobox');
     const sortFieldSelect = selects[1];
-    
+
     fireEvent.change(sortFieldSelect, { target: { value: 'population' } });
 
-    expect(mockOnFilterChange).toHaveBeenCalledWith({ sortField: 'population' });
+    expect(mockOnFilterChange).toHaveBeenCalledWith({
+      sortField: 'population',
+    });
   });
 
   it('calls onFilterChange with updated sortDirection when sort direction select changes', () => {
@@ -83,7 +89,7 @@ describe('FilterControls', () => {
 
     const selects = screen.getAllByRole('combobox');
     const sortDirectionSelect = selects[2];
-    
+
     fireEvent.change(sortDirectionSelect, { target: { value: 'desc' } });
 
     expect(mockOnFilterChange).toHaveBeenCalledWith({ sortDirection: 'desc' });

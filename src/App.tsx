@@ -10,20 +10,23 @@ import './styles.css';
 const App: React.FC = () => {
   const { countries, loading, error } = useCountries();
   const { visitedCountries, toggleCountryVisited } = useVisitedCountries();
-  
+
   const [filters, setFilters] = useState<FilterState>({
     searchQuery: '',
     selectedRegion: 'All',
     sortField: 'name',
-    sortDirection: 'asc'
+    sortDirection: 'asc',
   });
 
-  const handleFilterChange = useCallback((updatedFilters: Partial<FilterState>) => {
-    setFilters(prevFilters => ({
-      ...prevFilters,
-      ...updatedFilters
-    }));
-  }, []);
+  const handleFilterChange = useCallback(
+    (updatedFilters: Partial<FilterState>) => {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        ...updatedFilters,
+      }));
+    },
+    []
+  );
 
   if (loading) {
     return <div className="loading">Loading countries...</div>;
@@ -36,15 +39,12 @@ const App: React.FC = () => {
   return (
     <div className="app">
       <Header />
-      
+
       <main className="container">
-        <FilterControls 
-          filters={filters} 
-          onFilterChange={handleFilterChange} 
-        />
-        
-        <CountryList 
-          countries={countries} 
+        <FilterControls filters={filters} onFilterChange={handleFilterChange} />
+
+        <CountryList
+          countries={countries}
           filters={filters}
           visitedCountries={visitedCountries}
           onToggleVisited={toggleCountryVisited}

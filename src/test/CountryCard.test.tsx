@@ -19,11 +19,13 @@ describe('CountryCard', () => {
     );
 
     expect(screen.getByText('Finland')).toBeInTheDocument();
-    
-    expect(screen.getByText(/Population:/)).toHaveTextContent('Population: 5,530,719');
-    
+
+    expect(screen.getByText(/Population:/)).toHaveTextContent(
+      'Population: 5,530,719'
+    );
+
     expect(screen.getByText(/Region:/)).toHaveTextContent('Region: Europe');
-    
+
     const flagImage = screen.getByAltText(/Flag of Finland/);
     expect(flagImage).toBeInTheDocument();
     expect(flagImage).toHaveAttribute('src', mockCountry.flags.svg);

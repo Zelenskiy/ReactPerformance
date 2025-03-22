@@ -14,8 +14,10 @@ describe('countriesApi', () => {
     });
 
     const result = await fetchCountries();
-    
-    expect(globalThis.fetch).toHaveBeenCalledWith('https://restcountries.com/v3.1/all');
+
+    expect(globalThis.fetch).toHaveBeenCalledWith(
+      'https://restcountries.com/v3.1/all'
+    );
     expect(result).toEqual(mockCountries);
   });
 
@@ -29,7 +31,9 @@ describe('countriesApi', () => {
   });
 
   it('throws an error when the fetch throws an error', async () => {
-    (globalThis.fetch as Mock).mockRejectedValueOnce(new Error('Network error'));
+    (globalThis.fetch as Mock).mockRejectedValueOnce(
+      new Error('Network error')
+    );
 
     await expect(fetchCountries()).rejects.toThrow();
   });

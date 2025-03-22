@@ -1,7 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 
 export const useVisitedCountries = () => {
-  const [visitedCountries, setVisitedCountries] = useState<Set<string>>(new Set());
+  const [visitedCountries, setVisitedCountries] = useState<Set<string>>(
+    new Set()
+  );
 
   useEffect(() => {
     const storedVisited = localStorage.getItem('visitedCountries');
@@ -18,7 +20,7 @@ export const useVisitedCountries = () => {
   }, [visitedCountries]);
 
   const toggleCountryVisited = useCallback((countryCode: string) => {
-    setVisitedCountries(prevVisited => {
+    setVisitedCountries((prevVisited) => {
       const newVisited = new Set(prevVisited);
       if (newVisited.has(countryCode)) {
         newVisited.delete(countryCode);
@@ -35,6 +37,6 @@ export const useVisitedCountries = () => {
     isVisited: useCallback(
       (countryCode: string) => visitedCountries.has(countryCode),
       [visitedCountries]
-    )
+    ),
   };
 };

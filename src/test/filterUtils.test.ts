@@ -120,26 +120,35 @@ describe('filterUtils', () => {
   });
 });
 function filterByRegion(mockCountries: Country[], region: string): Country[] {
-    if (region === 'All') {
-        return mockCountries;
-    }
-    return mockCountries.filter(country => country.region === region);
+  if (region === 'All') {
+    return mockCountries;
+  }
+  return mockCountries.filter((country) => country.region === region);
 }
 
-function sortCountries(mockCountries: Country[], sortField: keyof Country, sortDirection: 'asc' | 'desc'): Country[] {
-    return [...mockCountries].sort((a, b) => {
-        const fieldA = a[sortField];
-        const fieldB = b[sortField];
+function sortCountries(
+  mockCountries: Country[],
+  sortField: keyof Country,
+  sortDirection: 'asc' | 'desc'
+): Country[] {
+  return [...mockCountries].sort((a, b) => {
+    const fieldA = a[sortField];
+    const fieldB = b[sortField];
 
-        if (fieldA < fieldB) return sortDirection === 'asc' ? -1 : 1;
-        if (fieldA > fieldB) return sortDirection === 'asc' ? 1 : -1;
-        return 0;
-    });
+    if (fieldA < fieldB) return sortDirection === 'asc' ? -1 : 1;
+    if (fieldA > fieldB) return sortDirection === 'asc' ? 1 : -1;
+    return 0;
+  });
 }
 
 function applyFilters(
   mockCountries: Country[],
-  filters: { searchQuery: string; selectedRegion: string; sortField: "name" | "population"; sortDirection: "asc" | "desc" }
+  filters: {
+    searchQuery: string;
+    selectedRegion: string;
+    sortField: 'name' | 'population';
+    sortDirection: 'asc' | 'desc';
+  }
 ): Country[] {
   let filteredCountries = mockCountries;
 
@@ -148,9 +157,15 @@ function applyFilters(
   }
 
   if (filters.selectedRegion !== 'All') {
-    filteredCountries = filterByRegion(filteredCountries, filters.selectedRegion);
+    filteredCountries = filterByRegion(
+      filteredCountries,
+      filters.selectedRegion
+    );
   }
 
-  return sortCountries(filteredCountries, filters.sortField, filters.sortDirection);
+  return sortCountries(
+    filteredCountries,
+    filters.sortField,
+    filters.sortDirection
+  );
 }
-
