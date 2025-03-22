@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useCallback } from 'react';
+import Header from './components/Header';
+import FilterControls from './components/FilterControls';
+import CountryList from './components/CountryList';
+import { useCountries } from './hooks/useCountries';
+import { useVisitedCountries } from './hooks/useVisitedCountries';
+import { FilterState } from './types/types';
+import './styles.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+  const { countries, loading, error } = useCountries();
+  const { visitedCountries, toggleCountryVisited } = useVisitedCountries();
+  
+  const [filters, setFilters] = useState<FilterState>({
+    searchQuery: '',
+    selectedRegion: 'All',
+    sortField: 'name',
+    sortDirection: 'asc'
+  });
+
+  const handleFilterChange = useCallback((updatedFilters: Partial<FilterState>) => {
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      ...updatedFilters
+    }));
+  }, []);
+
+  if (loading) {
+    return <div className="loading">Loading countries...</div>;
+  }
+
+  if (error) {
+    return <div className="error">{error}</div>;
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="app">
+      <Header />
+      
+      <main className="container">
+        <FilterControls 
+          filters={filters} 
+          onFilterChange={handleFilterChange} 
+        />
+        
+        <CountryList 
+          countries={countries} 
+          filters={filters}
+          visitedCountries={visitedCountries}
+          onToggleVisited={toggleCountryVisited}
+        />
+      </main>
+    </div>
+  );
+};
 
-export default App
+export default App;
