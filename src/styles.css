@@ -24,7 +24,6 @@ body {
   padding: 0 2rem;
 }
 
-/* Header Styles */
 .app-header {
   background-color: var(--primary-color);
   color: white;
@@ -36,7 +35,11 @@ body {
   margin-bottom: 0.5rem;
 }
 
-/* Filter Controls Styles */
+.sort-controls {
+  display: flex;
+  gap: .5rem;
+}
+
 .filter-controls {
   display: flex;
   flex-direction: column;
@@ -77,7 +80,6 @@ body {
   background-color: white;
 }
 
-/* Country List Styles */
 .country-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -139,7 +141,6 @@ body {
   font-size: 0.8rem;
 }
 
-/* Loading and Error States */
 .loading,
 .error,
 .no-results {
